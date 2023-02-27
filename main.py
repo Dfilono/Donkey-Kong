@@ -226,7 +226,7 @@ def highestScore():
     leaderboard = score
 
     #orting the scores for least to most
-    scores = leaderboard.values()
+    scores = leaderboard
 
 # collide checks whether or not the plaer has collided with a barrel
 def collide() -> bool:
@@ -277,7 +277,7 @@ def incline(y, x, direction, object):
         endNum = len(platformsInclineX) - 1
         move = 3
 
-    elif (y <= 638 and y >= 553) or (y <= 353 and y >= 438):
+    elif (y <= 638 and y >= 553) or (y >= 353 and y <= 438):
         startNum = 0
         endNum = len(platformsInclineX) - 2
         move = -3
@@ -319,10 +319,10 @@ def bounds(x, y):
 
     if x <= 105 and x>= 96:
         for i in range(len(leftBoundY)):
-            if y <= leftBoundY[i] and y>= leftBoundY[i] - 49:
+            if y <= leftBoundY[i] and y >= leftBoundY[i] - 49:
                 left = False
 
-    elif x>= 660 and x <= 669:
+    elif x >= 660 and x <= 669:
         for i in range(len(rightBoundY)):
             if y <= rightBoundY[i] and y >= rightBoundY[i] - 49:
                 right = False
@@ -594,7 +594,7 @@ while replay:
                             playerX += 5
 
                     for i in range(len(barrelX)):
-                        if playerX >= barrelX[i] and playerX <= barrelX[i] + 28 and playerY <= barrelY[i] - 23 and playerY >= barrelY - 65:
+                        if playerX >= barrelX[i] and playerX <= barrelX[i] + 28 and playerY <= barrelY[i] - 23 and playerY >= barrelY[i] - 65:
                             jumpPoint = 1
 
                 if scoreWin == False:
@@ -604,12 +604,12 @@ while replay:
                             barrelY[i] = -30
 
                         if fall[i] == False:
-                            barrelLeft[i], barrelRight[i] = bounds([barrelX[i], barrelY[i] - 15])
+                            barrelLeft[i], barrelRight[i] = bounds(barrelX[i], barrelY[i] - 15)
 
                             if barrelLeft[i] == False or barrelRight[i] == False:
                                 fall[i] = True
 
-                        if (barrelY[i] <= 353 and barrelY[i] >= 317) or (barrelY[i] <= 452 and barrelY[i] >= 415) or (barrelY[i] <= 648 and barrelY[i] >= 611):
+                        if (barrelY[i] <= 255 and barrelY[i] >= 243) or (barrelY[i] <= 452 and barrelY[i] >= 415) or (barrelY[i] <= 648 and barrelY[i] >= 611):
                             barrelDirection[i] = 'right'
 
                         elif (barrelY[i] <= 353 and barrelY[i] >= 317) or (barrelY[i] <= 550 and barrelY[i] >= 513) or (barrelY[i] <= 731 and barrelY[i] >= 709):
@@ -644,13 +644,13 @@ while replay:
                                     barrelLeft[i] = True
                                     barrelRight[i] = True
 
-                                if barrelPic[i] == barrelSequence[3]:
-                                    barrelPic[i] = barrelSequence[0]
+                            if barrelPic[i] == barrelSequence[3]:
+                                barrelPic[i] = barrelSequence[0]
 
-                                else:
-                                    for j in range(len(barrelSequence) -1):
-                                        if barrelPic[i] == barrelSequence[j]:
-                                            barrelPic[i] = barrelSequence[j + 1]
+                            else:
+                                for j in range(len(barrelSequence) -1):
+                                    if barrelPic[i] == barrelSequence[j]:
+                                        barrelPic[i] = barrelSequence[j + 1]
 
                         else:
                             barrelY[i] += 10
@@ -668,34 +668,34 @@ while replay:
                                 barrelX[i] += 2
                                 barrelY[i] += barrelAdjust[j]
 
-                        if throwBarrel == False:
-                            dkChoice = random.randint(0, 50 - difficulty)
+                    if throwBarrel == False:
+                        dkChoice = random.randint(0, 50 - difficulty)
 
-                            if dkChoice == 0:
-                                dkImage = dkLeft
-                                throwBarrel = True
-                            else:
-                                dkImage = dkForward
-                                throwBarrel = False
+                        if dkChoice == 0:
+                            dkImage = dkLeft
+                            throwBarrel = True
+                        else:
+                            dkImage = dkForward
+                            throwBarrel = False
 
-                        if throwBarrel:
-                            throwCountdown += 1
+                    if throwBarrel:
+                        throwCountdown += 1
 
-                            if throwCountdown == 20:
-                                dkImage = dkRight
-                                barrelX.append(250)
-                                barrelY.append(243)
-                                barrelDirection.append("right")
-                                barrelPic.append(barrel1)
-                                fall.append(False)
-                                fallCount.append(0)
-                                barrelLeft.append(True)
-                                barrelRight.append(True)
+                        if throwCountdown == 20:
+                            dkImage = dkRight
+                            barrelX.append(250)
+                            barrelY.append(243)
+                            barrelDirection.append("right")
+                            barrelPic.append(barrel1)
+                            fall.append(False)
+                            fallCount.append(0)
+                            barrelLeft.append(True)
+                            barrelRight.append(True)
 
-                            if throwCountdown == 40:
-                                throwCountdown = 0
-                                dkImage = dkForward
-                                throwBarrel = False
+                        if throwCountdown == 40:
+                            throwCountdown = 0
+                            dkImage = dkForward
+                            throwBarrel = False
 
             else:
                 if not pygame.mixer.get_busy():
@@ -708,7 +708,7 @@ while replay:
                     deathCount += 1
 
                     if deathCount == 60:
-                        death == True
+                        death = True
                         deathCount = 0
                         lives -= 1
 
@@ -728,7 +728,7 @@ while replay:
                     barrelPic = []
                     throwCountdown = 0
                     barrelDirection = []
-                    fall - []
+                    fall = []
                     fallCount = []
                     barrelLeft = []
                     barrelRight = []
@@ -917,7 +917,7 @@ while replay:
 
             if keys[pygame.K_RETURN] and (gameOver or winGame):
                 if option == 'top':
-                    inPlay = False
+                    inPlay = True
                     winLevel = False
                     pressed = False
                     climbDone = False
